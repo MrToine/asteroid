@@ -10,6 +10,7 @@ public class PlayerEvents : MonoBehaviour
     #region Publics
 
     public float speed = 0.5f;
+    public GameObject fire;
     
     #endregion
 
@@ -25,7 +26,12 @@ public class PlayerEvents : MonoBehaviour
     {
         if (_isThrusting)
         {
+            fire.SetActive(true);
             _rigidbody.AddForce(transform.up * speed, ForceMode2D.Force);
+        }
+        else
+        {
+            fire.SetActive(false);
         }
     }
 
