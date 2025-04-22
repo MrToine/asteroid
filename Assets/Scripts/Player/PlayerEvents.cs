@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 
 public class PlayerEvents : MonoBehaviour
@@ -9,8 +10,9 @@ public class PlayerEvents : MonoBehaviour
 
     #region Publics
 
-    public float speed = 0.5f;
-    public GameObject fire;
+    public float m_speed = 0.5f;
+    public float m_speedMax = 1.5f;
+    public GameObject m_fire;
     
     #endregion
 
@@ -26,12 +28,16 @@ public class PlayerEvents : MonoBehaviour
     {
         if (_isThrusting)
         {
-            fire.SetActive(true);
-            _rigidbody.AddForce(transform.up * speed, ForceMode2D.Force);
+
+            if (_rigidbody.linearVelocity.magnitude < m_speedMax)
+            {
+                m_fire.SetActive(true);
+                _rigidbody.AddForce(transform.up * m_speed, ForceMode2D.Force);
+            }   
         }
         else
         {
-            fire.SetActive(false);
+            m_fire.SetActive(false);
         }
     }
 

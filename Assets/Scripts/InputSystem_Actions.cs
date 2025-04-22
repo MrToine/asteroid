@@ -44,6 +44,15 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Weapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""03a5b1e2-9903-4231-ad01-006a37033f62"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -66,6 +75,17 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Acceleration"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b617a23-0b78-4ddc-b88f-51112d97a543"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Weapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -655,6 +675,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_MoveRotation = m_Player.FindAction("MoveRotation", throwIfNotFound: true);
         m_Player_Acceleration = m_Player.FindAction("Acceleration", throwIfNotFound: true);
+        m_Player_Weapon = m_Player.FindAction("Weapon", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -736,12 +757,14 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_MoveRotation;
     private readonly InputAction m_Player_Acceleration;
+    private readonly InputAction m_Player_Weapon;
     public struct PlayerActions
     {
         private @InputSystem m_Wrapper;
         public PlayerActions(@InputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @MoveRotation => m_Wrapper.m_Player_MoveRotation;
         public InputAction @Acceleration => m_Wrapper.m_Player_Acceleration;
+        public InputAction @Weapon => m_Wrapper.m_Player_Weapon;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -757,6 +780,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Acceleration.started += instance.OnAcceleration;
             @Acceleration.performed += instance.OnAcceleration;
             @Acceleration.canceled += instance.OnAcceleration;
+            @Weapon.started += instance.OnWeapon;
+            @Weapon.performed += instance.OnWeapon;
+            @Weapon.canceled += instance.OnWeapon;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -767,6 +793,9 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
             @Acceleration.started -= instance.OnAcceleration;
             @Acceleration.performed -= instance.OnAcceleration;
             @Acceleration.canceled -= instance.OnAcceleration;
+            @Weapon.started -= instance.OnWeapon;
+            @Weapon.performed -= instance.OnWeapon;
+            @Weapon.canceled -= instance.OnWeapon;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -951,6 +980,7 @@ public partial class @InputSystem: IInputActionCollection2, IDisposable
     {
         void OnMoveRotation(InputAction.CallbackContext context);
         void OnAcceleration(InputAction.CallbackContext context);
+        void OnWeapon(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
