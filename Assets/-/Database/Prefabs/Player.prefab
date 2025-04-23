@@ -36,6 +36,7 @@ Transform:
   m_Children:
   - {fileID: 2336330988447341559}
   - {fileID: 3200151122178830784}
+  - {fileID: 1585539404895021063}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &767759629283295267
@@ -192,8 +193,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Acceleration[/Keyboard/space]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9038459106320402749}
-        m_TargetAssemblyTypeName: PlayerEvents, Assembly-CSharp
+      - m_Target: {fileID: 9151341581457011684}
+        m_TargetAssemblyTypeName: Projectile.Runtime.ProjectileSpawn, Projectile.Runtime
         m_MethodName: OnShoot
         m_Mode: 0
         m_Arguments:
@@ -352,6 +353,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2769631942742263617
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1585539404895021063}
+  - component: {fileID: 8448193789864301268}
+  m_Layer: 0
+  m_Name: pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1585539404895021063
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2769631942742263617}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3599806105007540948}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8448193789864301268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2769631942742263617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649a4a89176c0ce4586a5699ef45a0b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectilePrefab: {fileID: 8654254346476652513, guid: f10a10d519aa8bc4fa7e083d96ac905f, type: 3}
+  _poolSize: 10
 --- !u!1 &8522577863488265630
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,8 +408,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3200151122178830784}
+  - component: {fileID: 9151341581457011684}
   m_Layer: 0
-  m_Name: target
+  m_Name: firePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -383,3 +431,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3599806105007540948}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9151341581457011684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8522577863488265630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df60a4087350eb2479f52e3ea866ee99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poolSystem: {fileID: 8448193789864301268}

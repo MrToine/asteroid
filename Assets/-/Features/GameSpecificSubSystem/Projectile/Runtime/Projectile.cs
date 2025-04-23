@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-namespace Weapon.Runtime
+namespace Projectile.Runtime
 {
     public class Projectile : MonoBehaviour
     {
@@ -10,6 +11,7 @@ namespace Weapon.Runtime
 
         public float m_speed = 1.0f;
         
+        
         #endregion
 
 
@@ -17,10 +19,28 @@ namespace Weapon.Runtime
 
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        void Awake()
         {
+            _timer = 0;
             _rigidbody = GetComponent<Rigidbody2D>();
-            _rigidbody.linearVelocity = transform.up * m_speed * Time.deltaTime;
+            _gameObject = gameObject;
+        }
+
+        private void Update()
+        {
+            _timer -= Time.deltaTime;
+            if (_timer <= 0)
+            {  
+                _gameObject.SetActive(false);
+                _rigidbody.linearVelocity = Vector2.zero;
+                _rigidbody.angularVelocity = 0f;
+                _timer = _lifetime;
+            }
+        }
+
+        private void OnEnable()
+        {
+            _rigidbody.linearVelocity = transform.up * (m_speed * Time.deltaTime);
         }
 
         #endregion
@@ -42,8 +62,13 @@ namespace Weapon.Runtime
         
         
         #region Privates and Protected
-
+        
+        private GameObject _gameObject;
         private Rigidbody2D _rigidbody;
+        private float _timer;
+        
+        [SerializeField]
+        private float _lifetime = 3.0f;
 
         #endregion
     }
