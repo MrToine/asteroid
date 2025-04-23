@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Weapon.Runtime
+namespace Projectile.Runtime
 {
     public class ProjectileSpawn : MonoBehaviour
     {
@@ -9,7 +10,7 @@ namespace Weapon.Runtime
 
         #region Publics
 
-        public GameObject m_projectilePrefab;
+        //
         
         #endregion
 
@@ -20,7 +21,7 @@ namespace Weapon.Runtime
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Start()
         {
-            
+            //
         }
 
         // Update is called once per frame
@@ -39,7 +40,10 @@ namespace Weapon.Runtime
         {
             if (context.performed)
             {
-                _SpawnProjectile();
+                var projectile = _poolSystem.GetFirstAvailableProjectile();
+                projectile.transform.position = transform.position;
+                projectile.transform.rotation = transform.rotation;
+                projectile.SetActive(true);
             }
         }
         
@@ -49,19 +53,14 @@ namespace Weapon.Runtime
         #region Utils
         
         /* Fonctions privées utiles */
-        private void _SpawnProjectile()
-        {
-            GameObject projectile = Instantiate(m_projectilePrefab);
-            projectile.transform.position = transform.position;
-            projectile.transform.rotation = transform.rotation;
-        }
         
         #endregion
         
         
         #region Privates and Protected
 
-        //
+        [SerializeField]
+        private ProjectilePool _poolSystem;
 
         #endregion
     }
