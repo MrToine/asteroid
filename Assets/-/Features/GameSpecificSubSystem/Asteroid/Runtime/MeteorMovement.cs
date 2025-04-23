@@ -33,9 +33,13 @@ namespace Asteroid.Runtime
 
         }
 
-        void OnCollisionEnter2D(Collision2D other)
+        void OnCollisionEnter2D(Collision2D other )
         {
-            gameObject.SetActive(false);
+            if (other.gameObject.layer != LayerMask.NameToLayer("Asteroid"))
+            {
+                gameObject.SetActive(false);
+            }      
+            
         }
         public void Launch()
         {
