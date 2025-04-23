@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 namespace Weapon.Runtime
 {
-    public class MunitionSpawn : MonoBehaviour
+    public class ProjectileSpawn : MonoBehaviour
     {
 
 
