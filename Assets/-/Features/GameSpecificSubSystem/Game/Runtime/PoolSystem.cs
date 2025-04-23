@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Projectile.Runtime
+namespace Game.Runtime
 {
     public class ProjectilePool : MonoBehaviour
     {
@@ -22,9 +23,9 @@ namespace Projectile.Runtime
         {
             for (int i = 0; i < _poolSize; i++)
             {
-                GameObject projectile = Instantiate(_projectilePrefab);
-                projectile.SetActive(false);
-                _listOfProjectile.Add(projectile);
+                GameObject instance = Instantiate(_objectPrefab);
+                instance.SetActive(false);
+                _listOfObjects.Add(instance);
             }
         }
 
@@ -36,16 +37,16 @@ namespace Projectile.Runtime
 
         public GameObject GetFirstAvailableProjectile()
         {
-            foreach (var instance in _listOfProjectile)
+            foreach (var instance in _listOfObjects)
             {
                 if (!instance.activeSelf)
                 {
                     return instance;
                 }
             }
-            var newInstance = Instantiate(_projectilePrefab, transform);
+            var newInstance = Instantiate(_objectPrefab, transform);
             newInstance.SetActive(false);
-            _listOfProjectile.Add(newInstance);
+            _listOfObjects.Add(newInstance);
             return newInstance;
         }
     
@@ -62,12 +63,12 @@ namespace Projectile.Runtime
         #region Privates and Protected
 
         [SerializeField]
-        private GameObject _projectilePrefab;
+        private GameObject _objectPrefab;
         
         [SerializeField]
         private int _poolSize = 10;
         
-        private List<GameObject> _listOfProjectile = new List<GameObject>();
+        private List<GameObject> _listOfObjects = new List<GameObject>();
 
         #endregion
     }
