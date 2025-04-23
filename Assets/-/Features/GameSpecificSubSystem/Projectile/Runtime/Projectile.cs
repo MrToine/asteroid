@@ -43,6 +43,11 @@ namespace Projectile.Runtime
             _rigidbody.linearVelocity = transform.up * (m_speed * Time.deltaTime);
         }
 
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            _gameObject.SetActive(false);
+        }
+
         #endregion
         
 
