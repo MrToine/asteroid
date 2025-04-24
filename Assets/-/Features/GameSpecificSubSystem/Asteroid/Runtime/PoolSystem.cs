@@ -40,10 +40,8 @@ namespace Asteroid.Runtime
         {
             foreach (GameObject asteroid in _pool)
             {
-                Debug.Log(asteroid);
                 if (!asteroid.activeSelf)
                 {
-                    Debug.Log(asteroid);
                     return asteroid;
                 }
             }

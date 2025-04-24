@@ -41,6 +41,7 @@ namespace Player.runtime
                 m_fire.SetActive(false);
             }
         }
+        
 
         #endregion
         

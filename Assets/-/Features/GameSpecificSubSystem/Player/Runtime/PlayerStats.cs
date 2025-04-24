@@ -29,10 +29,12 @@ namespace Player.Runtime
             CheckState();
         }
 
-        private void OnCollisionEnter(Collision other)
+        private void OnCollisionEnter2D(Collision2D other)
         {
+            Debug.Log("Collision enter");
             _lives -= 1;
             _isTouched = true;
+            CheckState();
         }
 
         #endregion
@@ -50,7 +52,7 @@ namespace Player.Runtime
                 {
                     Debug.Log("Touché !!");
                 }
-                _timer = 2.0f
+                _timer = 2.0f;
             }
         }
     
